@@ -3,8 +3,9 @@ import { Work_Sans } from "next/font/google";
 import "./globals.css";
 
 const workSans = Work_Sans({
-  variable: "--font-work-sans",
   subsets: ["latin"],
+  variable: "--font-work-sans", // Ensures CSS variable is set
+  display: "swap", // Improves font loading
 });
 
 

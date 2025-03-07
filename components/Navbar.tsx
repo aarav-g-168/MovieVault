@@ -14,7 +14,7 @@ export default function Nav() {
   ];
 
   return (
-    <header className="flex h-20 w-full items-center px-4 md:px-6 bg-gray-900 text-white backdrop-blur-md">
+    <header className="flex h-20 w-full z-10 items-center px-4 md:px-6 bg-gray-900 text-white backdrop-blur-md">
       {/* Mobile Menu */}
       <Sheet>
         <SheetTrigger asChild>
@@ -25,11 +25,11 @@ export default function Nav() {
         </SheetTrigger>
         <SheetContent side="left" className="bg-gray-900 text-white">
           {/* Logo in Mobile Menu */}
-          <Link href="/" className="mr-6 flex items-center" prefetch={false}>
+          <Link href="/" className="mr-6 flex items-center p-6" prefetch={false}>
             <Image src="/logo.png" alt="Logo" width={40} height={40} />
             <span className="ml-2 text-lg font-bold">CineGasm</span>
           </Link>
-          <div className="grid gap-2 py-6">
+          <div className="grid gap-2 p-6">
             {navItems.map((i) => (
               <Link
                 key={i.name}
@@ -44,26 +44,24 @@ export default function Nav() {
         </SheetContent>
       </Sheet>
 
-      {/* Logo in Navbar */}
-      <Link href="/" className="mr-6 flex items-center" prefetch={false}>
-        <Image src="/logo.png" alt="Logo" width={50} height={50} priority />
-        <span className="ml-2 text-lg font-bold">CineGasm</span>
-      </Link>
 
-      {/* Navigation Links */}
-      <nav className="ml-auto hidden lg:flex gap-6 backdrop-blur-md">
-        {navItems.map((item) => (
-          <Link
-            key={item.name}
-            href={item.href}
-            className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-gray-800 px-4 py-2 text-sm font-medium transition hover:bg-red-500 hover:text-white focus:outline-none"
-            prefetch={false}
-          >
-            {item.name}
-          </Link>
-        ))}
-      </nav>
-    </header>
+  <Link href="/" className="flex items-center">
+    <Image src="/logo.png" alt="Logo" width={50} height={50} priority />
+    <span className="ml-2 text-lg font-bold">CineGasm</span>
+  </Link>
+  <nav className="ml-auto hidden lg:flex gap-6">
+    {navItems.map((item) => (
+      <Link
+        key={item.name}
+        href={item.href}
+        className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-white/10 px-4 py-2 text-sm font-medium transition hover:bg-white/20 hover:scale-105"
+      >
+        {item.name}
+      </Link>
+    ))}
+  </nav>
+</header>
+
   );
 }
 

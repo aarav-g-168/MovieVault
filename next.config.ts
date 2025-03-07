@@ -1,8 +1,7 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   images: {
-    domains: ["static.tvmaze.com"], // ✅ Allow TVMaze images
+    domains: ["image.tmdb.org"],
   },
 };
 

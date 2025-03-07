@@ -11,7 +11,7 @@ export default function Home() {
         <div className="container absolute max-w-screen max-h-screen pointer-events-none z-0">
         <Aurora colorStops={["#3471eb", "#6ce65a", "#e65a5a"]} blend={0.5} amplitude={2.0} speed={0.7} />
         </div>
-        <div className="relative z-100">
+        <div className="relative">
         <MainSection />
         </div>
       </div>

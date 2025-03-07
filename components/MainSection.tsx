@@ -5,52 +5,54 @@ import { Input } from "@/components/ui/input";
 import MovieCard from "./MovieCard";
 
 interface Movie {
-  show: {
-    id: number;
-    name: string;
-    image: { medium: string; original: string } | null;
-    rating: { average: number | null } | null;
-    genres: string[];
-  };
+  id: number;
+  title: string;
+  poster_path: string | null;
+  vote_average: number;
+  genre_ids: number[];
 }
 
-export default function MovieList() {
+const TMDB_API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY; // 🔹 Replace with your TMDb API Key
+const TMDB_BASE_URL = "https://api.themoviedb.org/3";
+const TMDB_IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
+
+export default function MainSection() {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // Function to fetch top trending movies
-  const fetchTopMovies = async () => {
+  // Fetch trending movies from TMDb
+  const fetchTrendingMovies = async () => {
     setLoading(true);
     try {
-      const response = await fetch("https://api.tvmaze.com/shows");
+      const response = await fetch(`${TMDB_BASE_URL}/trending/movie/week?api_key=${TMDB_API_KEY}`);
       const data = await response.json();
-      setMovies(data.slice(0, 20).map((show: any) => ({ show }))); // Get first 20 movies
+      setMovies(data.results.slice(0, 20)); // Get first 20 movies
     } catch (error) {
-      console.error("Error fetching top movies:", error);
+      console.error("Error fetching trending movies:", error);
       setMovies([]);
     }
     setLoading(false);
   };
 
-  // Fetch top movies on page load
+  // Fetch trending movies on page load
   useEffect(() => {
-    fetchTopMovies();
+    fetchTrendingMovies();
   }, []);
 
-  // Fetch search results from API when user types
+  // Fetch search results from TMDb API when user types
   useEffect(() => {
     const fetchMovies = async () => {
       if (!searchQuery.trim()) {
-        fetchTopMovies(); // Reload top movies if input is empty
+        fetchTrendingMovies(); // Reload trending movies if input is empty
         return;
       }
 
       setLoading(true);
       try {
-        const response = await fetch(`https://api.tvmaze.com/search/shows?q=${searchQuery}`);
+        const response = await fetch(`${TMDB_BASE_URL}/search/movie?api_key=${TMDB_API_KEY}&query=${searchQuery}`);
         const data = await response.json();
-        setMovies(data);
+        setMovies(data.results);
       } catch (error) {
         console.error("Error searching movies:", error);
         setMovies([]);
@@ -71,10 +73,10 @@ export default function MovieList() {
       <div className="flex justify-center mb-6">
         <Input
           type="text"
-          placeholder="Search TV Shows..."
+          placeholder="Search Movies..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full max-w-md border border-gray-300 bg-white rounded-md shadow-sm p-2"
+          className="w-full max-w-md border border-gray-300 bg-white rounded-md shadow-sm p-4"
         />
       </div>
 
@@ -86,11 +88,11 @@ export default function MovieList() {
         {!loading && movies.length > 0 ? (
           movies.map((movie) => (
             <MovieCard
-              key={movie.show.id}
-              title={movie.show.name}
-              imageUrl={movie.show.image?.medium || "/placeholder.jpg"}
-              rating={movie.show.rating?.average || null}
-              genres={movie.show.genres}
+              key={movie.id}
+              title={movie.title}
+              imageUrl={movie.poster_path ? `${TMDB_IMAGE_BASE_URL}${movie.poster_path}` : "/placeholder.jpg"}
+              rating={movie.vote_average || null}
+              genres={[]} // TMDb requires extra API calls for genre names
             />
           ))
         ) : (
