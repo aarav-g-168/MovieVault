@@ -12,7 +12,7 @@ interface Movie {
   genre_ids: number[];
 }
 
-const TMDB_API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY; // 🔹 Replace with your TMDb API Key
+const TMDB_API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
 const TMDB_BASE_URL = "https://api.themoviedb.org/3";
 const TMDB_IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
 
@@ -20,12 +20,13 @@ export default function MainSection() {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [loading, setLoading] = useState(false);
-
+  
   // Fetch trending movies from TMDb
   const fetchTrendingMovies = async () => {
     setLoading(true);
     try {
       const response = await fetch(`${TMDB_BASE_URL}/trending/movie/week?api_key=${TMDB_API_KEY}`);
+      console.log(TMDB_API_KEY)
       const data = await response.json();
       setMovies(data.results.slice(0, 20)); // Get first 20 movies
     } catch (error) {
