@@ -144,7 +144,7 @@ export default function MovieDetails() {
             </p>
             <p className="text-lg leading-relaxed">{movie.overview || "No description available."}</p>
 
-            <div className="flex gap-4 mt-6">
+            <div className="flex flex-col lg:flex-row gap-4 mt-6">
               {trailerKey && (
                 <button
                   onClick={() => window.open(`https://www.youtube.com/watch?v=${trailerKey}`, "_blank")}
@@ -172,9 +172,9 @@ export default function MovieDetails() {
             </div>
 
             {/* Production Companies */}
-            <div className="mt-6 flex flex-wrap gap-4">
+            <div className="flex flex-col md:flex-row md:flex-wrap mt-6 gap-4">
               {movie.production_companies.map((company: any) => (
-                <div key={company.id} className="flex items-center bg-gray-800 p-2 rounded-lg shadow-md">
+                <div key={company.id} className="flex items-center justify-center bg-gray-800 p-2 rounded-lg shadow-md px-4">
                   {company.logo_path && (
                     <Image
                       src={`https://image.tmdb.org/t/p/w200${company.logo_path}`}
@@ -193,7 +193,7 @@ export default function MovieDetails() {
             {cast.length > 0 && (
               <div className="mt-10">
                 <h2 className="text-3xl font-bold mb-4">Main Cast</h2>
-                <div className="flex gap-6 overflow-x-auto scrollbar-hide">
+                <div className="flex gap-6 overflow-x-auto scrollbar">
                   {cast.map((actor) => (
                     <div key={actor.id} className="flex flex-col items-center bg-gray-800 p-4 rounded-lg shadow-md w-40">
                       <Image
