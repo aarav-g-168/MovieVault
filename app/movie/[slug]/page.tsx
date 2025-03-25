@@ -109,9 +109,9 @@ export default function MovieDetails() {
               <div className="w-full bg-gray-800 p-4 rounded-lg shadow-md">
                 <h2 className="text-xl font-semibold text-center mb-3">Available On</h2>
                 {streamingProviders && streamingProviders.length > 0 ? (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 justify-center items-center">
+                  <div className="grid grid-cols-2 sm:grid-cols-2 gap-20 sm:gap-2 justify-center items-center overflow-auto">
                     {streamingProviders.map((provider: any) => (
-                      <div key={provider.provider_id} className="flex flex-col items-center bg-gray-700 p-3 rounded-lg w-40 shadow-md">
+                      <div key={provider.provider_id} className="flex flex-col place-items-center justify-center bg-gray-700 p-4 rounded-lg w-40 shadow-md">
                         <Image
                           src={`https://image.tmdb.org/t/p/w200${provider.logo_path}`}
                           alt={provider.provider_name}
