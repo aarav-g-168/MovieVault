@@ -18,7 +18,7 @@ export default function Nav() {
       {/* Mobile Menu */}
       <Sheet>
         <SheetTrigger asChild>
-          <Button variant="outline" size="icon" className="lg:hidden text-white border-white">
+          <Button variant="outline" size="icon" className="hidden text-white border-white">
             <MenuIcon className="h-6 w-6" />
             <span className="sr-only">Toggle navigation menu</span>
           </Button>
