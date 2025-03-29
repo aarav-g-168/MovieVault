@@ -119,7 +119,7 @@ export default function MovieDetails() {
                           height={80}
                           className="rounded-md"
                         />
-                        <p className="text-sm font-semibold mt-2 text-center">{provider.provider_name}</p>
+                        <p className="text-sm font-semibold mt-2 text-center line-clamp-1">{provider.provider_name}</p>
                       </div>
                     ))}
                   </div>
